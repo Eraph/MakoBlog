@@ -2,7 +2,7 @@ name: MakoBlog Build Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, MakoPhil:main]
   pull_request:
     branches: [main]
   workflow_dispatch:
