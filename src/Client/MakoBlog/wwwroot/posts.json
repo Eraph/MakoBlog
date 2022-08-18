@@ -1,6 +1,16 @@
 {
 	"Posts": [
 		{
+			"Date": "2022-08-18T11:11:26.853Z",
+			"Title": "Slight delay with Bluetooth Mouse in Linux",
+			"Body": "A quick tip here for when a bluetooth mouse takes a moment to react after not being used for a few seconds. Bluetooth autosuspend can be disabled with a negligible power consumption penalty by setting a kernel parameter on boot.\n\n1) Open `/etc/default/grub` for editing as root.\n2) Find the line with `GRUB_CMDLINE_LINUX_DEFAULT` and append `btusb.enable_autosuspend=0` to the end.\n3) Save your changes.\n4) Run:\n    ``` bash\n    sudo update-grub\n    ```\n5) Reboot.\n\nThis solution was found [here](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1801642) and is confirmed as a fix for Manjaro.",
+			"Tags": [
+				"Tips",
+				"Linux",
+				"Future Reference"
+			]
+		},
+		{
 			"Date": "2022-07-26T10:02:53.099Z",
 			"Title": "SQLite.NET in Godot",
 			"Body": "I'll talk more about why I think the [Godot game engine](https://godotengine.org/) is a good alternative to [Unity](https://unity.com/) as part of my alternatives series of posts, but for now I want to share for posterity's sake how to use SQLite.NET in Godot. Skip to the end to add the one package necessary to get SQLite.NET working in Godot.\n\nFor the uninitiated, [SQLite.NET](https://github.com/praeclarum/sqlite-net) is an ORM for SQLite, similar to Entity Framework. SQLite is a good fit for games and I'm fond of using an ORM where possible. The PCL version is cross-platform, so it'll run on Android and all sorts.\n\nAs of now the latest version of [sqlite-net-pcl](https://www.nuget.org/packages/sqlite-net-pcl) on Nuget is 1.8.116, but this seems to be incompatible with Godot or .NET 4.7.2, resulting in the following error:\n\n> Library e_sqlite3 not found\n\nI've spent an awful lot of time trying to tease out the solution, referencing explicit SQLite3 nuget packages (so many of them,) mixing and matching combinations of the aforementioned, creating my own GDNativeLibrary to explicitly include them with the project... all with the same result.\n\nThe trick is, as alluded to in [this tucked away post](https://github.com/praeclarum/sqlite-net/issues/967#issuecomment-653799871), to use version 1.6.292.\n\n```bash\ndotnet add package sqlite-net-pcl --version 1.6.292\n```\n\nAnd that's it! No other packages necessary.",
